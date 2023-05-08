@@ -63,25 +63,52 @@ dogCard.classList.add('dog-card');
 //    * ON FAILURE: log the error to the console
 //    * IN ANY CASE: log "done" to the console
 
-axios.get("https://dog.ceo/api/breeds/image/random")
-      .then(res => {
-          // console.log(res);
-          const dogCard = dogCardMaker({ imageURL: res.data.message, breed: "test" } )
-          entryPoint.appendChild(dogCard);
-        })
-      .catch(err => {
-        console.log(err)
-      })
-  .finally(() => console.log('done'))
+// axios.get("https://dog.ceo/api/breeds/image/random")
+//       .then(res => {
+//           // console.log(res);
+//           const dogCard = dogCardMaker({ imageURL: res.data.message, breed: "test" } )
+//           entryPoint.appendChild(dogCard);
+//         })
+//       .catch(err => {
+//         console.log(err)
+//       })
+//   .finally(() => console.log('done'))
+
 
 
 // 👉 (OPTIONAL) TASK 6- Wrap the fetching operation inside a function `getDogs`
 // that takes a breed and a count (of dogs)
 
+function getDogs(breed, count) {
+  axios.get(`https://dog.ceo/api/breed/${breed}/images/random/${count}`)
+    .then(res => {
+        // console.log(res);
+
+        res.data.message.forEach(imageURL => {
+          const dogCard = dogCardMaker({ imageURL: imageURL, breed: breed } )
+          entryPoint.appendChild(dogCard);
+
+        })
+        
+      })
+    .catch(err => {
+      console.log(err)
+    })
+.finally(() => console.log('done'))
+}
+
+// getDogs(5)
+
 
 // 👉 (OPTIONAL) TASK 7- Put a button in index.html to 'get dogs' and add a click
 // event listener that executes `getDogs`
 
+const dogButton = document.querySelector('button');
+
+dogButton.addEventListener('click', () => {
+    getDogs("mastiff", 3);
+
+  })
 
 // 👉 (OPTIONAL) TASK 8- Import the breeds from `breeds.js`
 // and loop over them, fetching a dog at each iteration
