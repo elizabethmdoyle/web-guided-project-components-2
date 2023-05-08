@@ -1,3 +1,5 @@
+import axios from "axios";
+
 // 👉 TASK 1- Test out the following endpoints:
 
 //  https://dog.ceo/api/breeds/image/random
@@ -39,14 +41,16 @@ dogCard.classList.add('dog-card');
   console.log(dogCard)
   // add some interactivity
 
-  
+  dogCard.addEventListener('click', evt => {
+    dogCard.classList.toggle('selected')
+  })
   // never forget to return!
 
 
  return dogCard
 }
 
-dogCardMaker({imageURL: 'https:///images.dog.ceo/breeds/doberman/n02107142_10009.jpg', breed: 'test breed'})
+// dogCardMaker({imageURL: 'https:///images.dog.ceo/breeds/doberman/n02107142_10009.jpg', breed: 'test breed'})
 
 
 // 👉 TASK 4- Bring the Axios library into the project using one of two methods:
@@ -58,6 +62,17 @@ dogCardMaker({imageURL: 'https:///images.dog.ceo/breeds/doberman/n02107142_10009
 //    * ON SUCCESS: use the data to create dogCards and append them to the entry point
 //    * ON FAILURE: log the error to the console
 //    * IN ANY CASE: log "done" to the console
+
+axios.get("https://dog.ceo/api/breeds/image/random")
+      .then(res => {
+          // console.log(res);
+          const dogCard = dogCardMaker({ imageURL: res.data.message, breed: "test" } )
+          entryPoint.appendChild(dogCard);
+        })
+      .catch(err => {
+        console.log(err)
+      })
+  .finally(() => console.log('done'))
 
 
 // 👉 (OPTIONAL) TASK 6- Wrap the fetching operation inside a function `getDogs`
