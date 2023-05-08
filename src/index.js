@@ -8,7 +8,7 @@
 
 // 👉 TASK 2- Select the "entry point", the element
 // inside of which we'll inject our dog cards 
-const entryPoint = null
+const entryPoint = document.querySelector('.entry');
 
 
 // 👉 TASK 3- `dogCardMaker` takes an object and returns a Dog Card.
@@ -21,14 +21,32 @@ function dogCardMaker({ imageURL, breed }) {
       <h3>
     </div>
   */
+    const dogCard = document.createElement('div');
+    const dogCardImage = document.createElement('img');
+    const dogCardBreed = document.createElement('h3');
+  
   // set class names, attributes and text
+ 
+dogCard.classList.add('dog-card');
+  dogCardImage.classList.add('dog-image');
 
+  dogCardImage.src = imageURL;
+  dogCardBreed.textContent = `Breed: ${breed}`;
   // create the hierarchy
 
+  dogCard.appendChild(dogCardImage);
+  dogCard.appendChild(dogCardBreed);
+  console.log(dogCard)
   // add some interactivity
 
+  
   // never forget to return!
+
+
+ return dogCard
 }
+
+dogCardMaker({imageURL: 'https:///images.dog.ceo/breeds/doberman/n02107142_10009.jpg', breed: 'test breed'})
 
 
 // 👉 TASK 4- Bring the Axios library into the project using one of two methods:
